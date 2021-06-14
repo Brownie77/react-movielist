@@ -1,4 +1,5 @@
 import React from "react";
+import "../index.css";
 const movie = {
   title: "Avengers: Infinity War",
   vote_average: 8.5,
@@ -6,33 +7,46 @@ const movie = {
   overview: "some text for owerview"
 };
 function Image(props) {
-  return <img src={props.src} alt={props.alt} />;
+  return <img width="100%" src={props.src} alt={props.alt} />;
 }
 class MovieItem extends React.Component {
   constructor() {
     super();
     this.state = {
-      show: false
+      show: false,
+      like: false
     };
   }
   toggleOwerview = () => {
     this.setState({ show: this.state.show ? false : true });
   };
-
+  handleLike = () => {
+    this.setState({ like: !this.state.like });
+  };
   render() {
     const {
       data: { title, vote_average, image, overview }
     } = this.props;
-    console.log(this.props);
+    console.log(this.state);
     return (
-      <div>
+      <div style={{ width: "300px" }}>
         <Image src={image} alt={title} />
         <p>{title}</p>
         <p>{vote_average}</p>
-        <button type="button" onClick={this.toggleOwerview}>
-          {this.state.show ? "hide" : "show"}
-        </button>
-        <button type="button">Like</button>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <button type="button" onClick={this.toggleOwerview}>
+            {this.state.show ? "hide" : "show"}
+          </button>
+          <button
+            type="button"
+            onClick={this.handleLike}
+            style={
+              this.state.like ? { background: "blue" } : { background: "white" }
+            }
+          >
+            Like
+          </button>
+        </div>
         {this.state.show ? <p>{overview}</p> : null}
       </div>
     );
