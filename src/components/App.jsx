@@ -15,23 +15,24 @@ class MovieItem extends React.Component {
       show: false
     };
   }
+  toggleOwerview = () => {
+    this.setState({ show: this.state.show ? false : true });
+  };
+
   render() {
     const {
       data: { title, vote_average, image, overview }
     } = this.props;
+    console.log(this.props);
     return (
       <div>
         <Image src={image} alt={title} />
         <p>{title}</p>
         <p>{vote_average}</p>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ show: this.state.show ? false : true });
-          }}
-        >
-          show
+        <button type="button" onClick={this.toggleOwerview}>
+          {this.state.show ? "hide" : "show"}
         </button>
+        <button type="button">Like</button>
         {this.state.show ? <p>{overview}</p> : null}
       </div>
     );
